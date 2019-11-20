@@ -4,10 +4,11 @@ import clsx from 'clsx';
 
 // Material-ui
 import SaveIcon from '@material-ui/icons/SaveRounded';
+import RemoveIcon from '@material-ui/icons/DeleteForever';
 import Fab from '@material-ui/core/Fab';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import { green } from '@material-ui/core/colors';
+import { green, red } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 
 // Context
@@ -36,11 +37,23 @@ const useStyles = makeStyles((theme) => ({
     bottom: theme.spacing(2),
     right: theme.spacing(2),
   },
+  fabLeft: {
+    position: 'absolute',
+    bottom: theme.spacing(2),
+    left: theme.spacing(2),
+  },
   fabGreen: {
     color: theme.palette.common.white,
     backgroundColor: green[500],
     '&:hover': {
       backgroundColor: green[600],
+    },
+  },
+  fabRed: {
+    color: theme.palette.common.white,
+    backgroundColor: red[500],
+    '&:hover': {
+      backgroundColor: red[600],
     },
   },
   textField: {
@@ -73,7 +86,12 @@ function ItemEdit() {
   const name = useFormInput('Loading...');
   const type = useFormInput('Loading...');
   const amount = useFormInput(0);
-  const { getItem, editItem, types } = useContext(AppContext);
+  const {
+    getItem,
+    editItem,
+    deleteItem,
+    types,
+  } = useContext(AppContext);
   const { push } = useHistory();
   const { id } = useParams();
   const classes = useStyles();
@@ -82,16 +100,21 @@ function ItemEdit() {
     const item = getItem(id);
     name.set(item.name);
     type.set(item.type);
-    amount.set(item.amount);
+    amount.set(Number(item.amount));
     setLoading(false);
   }, [id]);
+
+  const handleDelete = () => {
+    deleteItem(Number(id));
+    push('/');
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const updatedItem = {
       name: name.value,
       type: type.value,
-      amount: amount.value,
+      amount: Number(amount.value),
     };
 
     editItem(id, updatedItem);
@@ -167,6 +190,14 @@ function ItemEdit() {
           </form>
         </Grid>
       </Grid>
+      <Fab
+        aria-label="Delete"
+        className={clsx(classes.fabLeft, classes.fabRed)}
+        color="inherit"
+        onClick={handleDelete}
+      >
+        <RemoveIcon />
+      </Fab>
       <Fab
         aria-label="Save"
         className={clsx(classes.fab, classes.fabGreen)}

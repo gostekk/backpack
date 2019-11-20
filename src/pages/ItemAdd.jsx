@@ -77,7 +77,7 @@ function ItemAdd() {
     const item = {
       name: name.value,
       type: type.value,
-      amount: amount.value,
+      amount: Number(amount.value),
     };
 
     addItem(item);
