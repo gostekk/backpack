@@ -13,6 +13,9 @@ const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
   },
+  arrow: {
+    position: 'absolute',
+  },
   title: {
     flexGrow: 1,
   },
@@ -29,7 +32,13 @@ export default function Navigation() {
         <Toolbar>
           { pathname !== '/'
             ? (
-              <IconButton aria-label="Back" color="inherit" hidden onClick={() => history.push('/')}>
+              <IconButton
+                aria-label="Back"
+                className={classes.arrow}
+                color="inherit"
+                hidden
+                onClick={() => history.push('/')}
+              >
                 <ArrowBack />
               </IconButton>
             )
