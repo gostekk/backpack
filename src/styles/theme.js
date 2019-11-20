@@ -4,11 +4,11 @@ const styledBy = (property, mapping) => mapping[property];
 
 const colors = [
   // 'default',
-  'pink',
+  // 'pink',
   'purple',
   'deepPurple',
   'blue',
-  'green',
+  // 'green',
   // 'blueGrey',
 ];
 const rand = colors[Math.floor(Math.random() * colors.length)];
