@@ -83,6 +83,7 @@ function useFormInput(initialValue) {
 
 function ItemEdit() {
   const [loading, setLoading] = useState(true);
+  const [errors, setErrors] = useState({});
   const name = useFormInput('Loading...');
   const type = useFormInput('Loading...');
   const amount = useFormInput(0);
@@ -102,6 +103,7 @@ function ItemEdit() {
     type.set(item.type);
     amount.set(Number(item.amount));
     setLoading(false);
+    // eslint-disable-next-line
   }, [id]);
 
   const handleDelete = () => {
@@ -109,16 +111,22 @@ function ItemEdit() {
     push('/');
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const updatedItem = {
       name: name.value,
       type: type.value,
       amount: Number(amount.value),
     };
 
-    editItem(id, updatedItem);
-    push('/');
+    const result = await editItem(id, updatedItem);
+    const errorsValue = result.errors ? result.errors : '';
+
+    if (errorsValue) {
+      return setErrors(errorsValue);
+    }
+
+    return push('/');
   };
 
   return (
@@ -144,6 +152,8 @@ function ItemEdit() {
                 value={name.value}
                 disabled={loading}
                 onChange={name.onChange}
+                error={!!errors.name}
+                helperText={errors.name ? errors.name : undefined}
                 margin="normal"
                 variant="outlined"
               />

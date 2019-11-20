@@ -64,6 +64,7 @@ function useFormInput(initialValue) {
 }
 
 function ItemAdd() {
+  const [errors, setErrors] = useState({});
   const name = useFormInput('');
   const type = useFormInput('Undefined');
   const amount = useFormInput(1);
@@ -72,16 +73,22 @@ function ItemAdd() {
   const classes = useStyles();
 
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const item = {
       name: name.value,
       type: type.value,
       amount: Number(amount.value),
     };
 
-    addItem(item);
-    push('/');
+    const result = await addItem(item);
+    const errorsValue = result.errors ? result.errors : '';
+
+    if (errorsValue) {
+      return setErrors(errorsValue);
+    }
+
+    return push('/');
   };
 
   return (
@@ -106,6 +113,8 @@ function ItemAdd() {
                 className={classes.textField}
                 value={name.value}
                 onChange={name.onChange}
+                error={!!errors.name}
+                helperText={errors.name ? errors.name : undefined}
                 margin="normal"
                 variant="outlined"
               />

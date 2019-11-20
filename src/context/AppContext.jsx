@@ -61,7 +61,13 @@ function AppProvider(props) {
 
   const addItem = async (item) => {
     // Validate data
-
+    if (item.name.length <= 0) {
+      return {
+        errors: {
+          name: "Name can't be blank",
+        },
+      };
+    }
     // Save to database
     const result = await db.items.add(item);
     // Add new element to state items
@@ -72,7 +78,13 @@ function AppProvider(props) {
 
   const editItem = async (id, updateData) => {
     // Validate data
-
+    if (updateData.name.length <= 0) {
+      return {
+        errors: {
+          name: "Name can't be blank",
+        },
+      };
+    }
     // Update database
     const result = await db.items.update(Number(id), updateData);
     // Load new data to state items
