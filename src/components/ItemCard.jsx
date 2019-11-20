@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 
 // Material-ui
 import Divider from '@material-ui/core/Divider';
@@ -12,6 +13,7 @@ import Typography from '@material-ui/core/Typography';
 
 export default function ItemCard(props) {
   const { item } = props;
+  const { push } = useHistory();
 
   return (
     <>
@@ -35,14 +37,18 @@ export default function ItemCard(props) {
           </Grid>
         </Grid>
         <ListItemSecondaryAction>
-          <IconButton size="small" edge="end" aria-label="more">
+          <IconButton
+            size="small"
+            edge="end"
+            aria-label="more"
+            onClick={() => push(`/edit/${item.id}`)}
+          >
             <MoreHoriz />
           </IconButton>
         </ListItemSecondaryAction>
       </ListItem>
       <Divider />
     </>
-
   );
 }
 

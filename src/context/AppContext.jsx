@@ -46,13 +46,18 @@ function AppProvider(props) {
   const { children } = props;
 
   const fetchItems = async () => {
-    const dbItems = await db.items.orderBy('name').limit(10).toArray();
+    const dbItems = await db.items.orderBy('name').toArray();
     setItems(dbItems);
   };
 
   useEffect(() => {
     fetchItems();
   }, []);
+
+  const getItem = (id) => {
+    const result = items.find((item) => item.id === Number(id));
+    return result;
+  };
 
   const addItem = async (item) => {
     // Validate data
@@ -69,9 +74,10 @@ function AppProvider(props) {
     // Validate data
 
     // Update database
-    const result = await db.items.update(id, updateData);
+    const result = await db.items.update(Number(id), updateData);
+    console.log(result);
     // Load new data to state items
-    // setItems(db.items.toArray());
+    fetchItems();
 
     return result;
   };
@@ -80,7 +86,7 @@ function AppProvider(props) {
     // Delete item from database
     const result = await db.items.delete(id);
     // Load new data to state items
-    // setItems(db.items.toArray());
+    fetchItems();
 
     return result;
   };
@@ -88,6 +94,7 @@ function AppProvider(props) {
   return (
     <AppContext.Provider
       value={{
+        getItem,
         addItem,
         editItem,
         deleteItem,

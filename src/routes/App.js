@@ -7,6 +7,7 @@ import { AppContext } from '../context/AppContext';
 import Navigation from '../components/Navigation';
 import Home from '../pages/Home';
 import ItemAdd from '../pages/ItemAdd';
+import ItemEdit from '../pages/ItemEdit';
 
 function App() {
   const { items } = useContext(AppContext);
@@ -19,6 +20,7 @@ function App() {
       <Switch>
         <Route path="/" exact component={Home} />
         <Route path="/add" exact component={ItemAdd} />
+        <Route path="/edit/:id" exact component={ItemEdit} />
         {/* <Route path="/info" exact component={ItemInfo} /> */}
         {/* <Route path="/about" exact component={About} /> */}
       </Switch>
