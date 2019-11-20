@@ -3,7 +3,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import clsx from 'clsx';
 
 // Material-ui
-import AddIcon from '@material-ui/icons/SaveRounded';
+import SaveIcon from '@material-ui/icons/SaveRounded';
 import Fab from '@material-ui/core/Fab';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -173,7 +173,7 @@ function ItemEdit() {
         color="inherit"
         onClick={handleSubmit}
       >
-        <AddIcon />
+        <SaveIcon />
       </Fab>
     </div>
   );
