@@ -64,7 +64,7 @@ function useFormInput(initialValue) {
 }
 
 function ItemAdd() {
-  const name = useFormInput('Item');
+  const name = useFormInput('');
   const type = useFormInput('Undefined');
   const amount = useFormInput(1);
   const { addItem, types } = useContext(AppContext);
