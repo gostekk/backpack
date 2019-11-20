@@ -75,7 +75,6 @@ function AppProvider(props) {
 
     // Update database
     const result = await db.items.update(Number(id), updateData);
-    console.log(result);
     // Load new data to state items
     fetchItems();
 

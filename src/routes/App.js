@@ -1,18 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import { AppContext } from '../context/AppContext';
 import Navigation from '../components/Navigation';
 import Home from '../pages/Home';
 import ItemAdd from '../pages/ItemAdd';
 import ItemEdit from '../pages/ItemEdit';
 
 function App() {
-  const { items } = useContext(AppContext);
-  console.log(items);
-
   return (
     <Router>
       <CssBaseline />
