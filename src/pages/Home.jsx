@@ -1,6 +1,9 @@
 import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 
 // Material-ui
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
 import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import { makeStyles } from '@material-ui/core/styles';
@@ -27,10 +30,16 @@ const useStyles = makeStyles((theme) => ({
       display: 'flex',
     },
   },
+  fab: {
+    position: 'absolute',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
 }));
 
 function Home() {
   const { items } = useContext(AppContext);
+  const { push } = useHistory();
   const classes = useStyles();
 
   return (
@@ -55,6 +64,14 @@ function Home() {
           </div>
         </Grid>
       </Grid>
+      <Fab
+        aria-label="Add"
+        className={classes.fab}
+        color="primary"
+        onClick={() => push('/add')}
+      >
+        <AddIcon />
+      </Fab>
     </div>
   );
 }

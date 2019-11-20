@@ -60,7 +60,7 @@ function AppProvider(props) {
     // Save to database
     const result = await db.items.add(item);
     // Add new element to state items
-    // setItems([...items, result]);
+    setItems([...items, { ...item, id: result }]);
 
     return result;
   };
