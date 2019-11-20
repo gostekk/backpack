@@ -84,7 +84,7 @@ function ItemEdit() {
     type.set(item.type);
     amount.set(item.amount);
     setLoading(false);
-  }, [amount, getItem, id, name, type]);
+  }, [id]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
